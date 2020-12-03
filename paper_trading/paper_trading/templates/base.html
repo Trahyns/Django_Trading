@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<html>
+
+<head>
+
+</head>
+
+<body class="bg-transparent">
+
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <script>
+            alert("{{message}}")
+        </script>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-primary">
+        <a class="navbar-brand text-light">FundPro</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            <form method="POST" class="form-inline my-2 my-lg-0" action="/search/">
+                {% csrf_token %}
+                <input class="form-control mr-sm-2" type="search" placeholder="Search Ticker" aria-label="Search Ticker"
+                    name="ticker">
+                <input type="hidden" name="graphTime" value=0>
+                <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+            </form>
+
+            <ul class="navbar-nav ml-auto">
+
+                <li class="nav-item active">
+                    <a class="nav-link text-light" href="/leaderboard/">Leaderboard <span
+                            class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link text-light" href="/accounts/portfolio/">Portfolio <span
+                            class="sr-only">(current)</span></a>
+                </li>
+
+                <li class="nav-item active">
+                    <a class="nav-link text-light" href="/accounts/account_settings/">Settings <span
+                            class="sr-only">(current)</span></a>
+                </li>
+
+                <li class="nav-item active">
+                    <a class="nav-link text-light" href="/accounts/logout/">Logout <span
+                            class="sr-only">(current)</span></a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+    <!--
+        <div style="width: 100%; overflow: hidden;">
+            <div style="width: 10%; float: left;">
+                <a href="/home/">Home</a>
+            </div>
+            <div style="width: 25%; float: left;">
+                <form method="POST" action="/search/">
+                    {% csrf_token %}
+                    <input name="ticker" onfocus="if (this.value=='Search for ticker') this.value = ''" type="text" value="Search for ticker">
+                    <button type="submit">Search</button>
+                </form>
+            </div>
+            <div style="width: 10%; float: left;">
+                <a href = "/leaderboard/">Leaderboard</a>
+            </div>
+            <div style="width: 10%; float: left;">
+                <a href="/accounts/portfolio/">Portfolio</a>
+            </div>
+            <div style="width: 10%; float: left;">
+                <a href="/accounts/account_settings/">Settings</a>
+            </div>
+            <div style="width: 35%; float: left; margin: auto;">
+                <p style="float: left; margin:auto;">{{user.username}}</p>
+                <a href="/accounts/logout/" style="margin-left:5%;">Logout</a>
+            </div>
+            
+            <div style="margin-left: 15%;"> 
+                
+            </div>
+            
+        </div>
+    -->
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
+    {% block content %}{% endblock content %}
+</body>
+
+</html>
