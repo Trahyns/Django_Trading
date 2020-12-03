@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <div class="row pt-5">
+        <div class="col">
+            <h1 class="display-4 text-primary">User Settings</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <p>Username: {{user.username}}</p>
+            <a href="/accounts/change_password/">Change Password</a>
+            <p>User since: {{user.date_joined}}</p>
+
+        </div>
+    </div>
+
+    <div class="row pb-2">
+        <div class="col-6">
+            <form method="POST" action="/accounts/change_info/">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label>Username:</label>
+                    <input type="username" class="form-control" name="username" value={{user.username}}>
+                </div>
+                <div class="form-group">
+                    <label>First Name:</label>
+                    <input type="text" class="form-control" name="first_name" value={{user.first_name}}>
+                </div>
+
+                <div class="form-group">
+                    <label>Last Name:</label>
+                    <input type="text" class="form-control" name="last_name" value={{user.last_name}}>
+                </div>
+
+                <div class="form-group">
+                    <label>Email:</label>
+                    <input type="email" class="form-control" name="email" value={{user.email}}>
+                </div>
+
+                <button class="btn btn-outline-primary" type="submit">Save Info</button>
+
+
+            </form>
+        </div>
+    </div>
+
+    <!--
+    <div class="row">
+        <div class="col-10">
+            <p class="text-primary font-weight-bold">Edit User Info</h2>
+            <form method="POST" action="/accounts/change_info/">
+                {% csrf_token %}
+                <label>Username:
+                    <input class="form-control" type = "text" name="username" value={{user.username}}>
+                </label>
+                <br>
+                <label>First Name:
+                    <input class="form-control" type = "text" name = "first_name" value = {{user.first_name}}>
+                </label>
+                <label>Last Name:
+                    <input class="form-control" type = "text" name="last_name" value = {{user.last_name}}>
+                </label>
+                <label>Email:
+                    <input class="form-control" type="text" name="email" value = {{user.email}}>
+                </label>
+                <button class="form-control" type="submit">Save Info</button>
+            </form>
+        </div>
+    </div>
+    -->
+
+</div>
+
+
+
+{% endblock %}

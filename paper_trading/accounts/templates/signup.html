@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+
+
+
+
+<div class="container-fluid">
+    <div class="row pt-5">
+        <div class="col">
+            <h2 class="display-4 text-primary">Sign up</h2>
+
+            <form method="POST" action="/accounts/signup/">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label>Username:</label>
+                    <input type="username" class="form-control" name="username" maxlength="150" autocapitalize="none"
+                        autocomplete="username" autofocus required id="id_username">
+                    <span class="helptext">Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</span>
+
+                </div>
+
+                <div class="form-group">
+                    <label for="id_password1">Password:</label>
+                    <input type="password" class="form-control" name="password1" autocomplete="new-password" required
+                        id="id_password1">
+                    <br>
+                    <span class="helptext">
+                        <ul>
+                            <li>Your password can’t be too similar to your other personal information.</li>
+                            <li>Your password must contain at least 8 characters.</li>
+                            <li>Your password can’t be a commonly used password.</li>
+                            <li>Your password can’t be entirely numeric.</li>
+                        </ul>
+                    </span>
+                </div>
+
+                <div class="form-group">
+                    <label for="id_password2">Password confirmation:</label>
+                    <input type="password" class="form-control" name="password2" autocomplete="new-password" required
+                        id="id_password2">
+                    <br>
+                    <span class="helptext">Enter the same password as before, for verification.</span>
+                </div>
+                <div class="form-group">
+                    <label>First Name:</label>
+                    <input type="text" class="form-control" name="first_name" value={{user.first_name}}>
+                </div>
+
+                <div class="form-group">
+                    <label>Last Name:</label>
+                    <input type="text" class="form-control" name="last_name" value={{user.last_name}}>
+                </div>
+
+                <div class="form-group">
+                    <label>Email:</label>
+                    <input type="email" class="form-control" name="email" value={{user.email}}>
+                </div>
+
+                <button class="btn btn-outline-primary" type="submit">Signup</button>
+
+
+            </form>
+
+
+
+
+
+        </div>
+
+
+    </div>
+</div>
+
+{% endblock %}
+
+
+<tr>
+    <th><label for="id_username">Username:</label></th>
+    <td><input type="text" name="username" maxlength="150" autocapitalize="none" autocomplete="username" autofocus
+            required id="id_username"><br><span class="helptext">Required. 150 characters or fewer. Letters, digits and
+            @/./+/-/_ only.</span></td>
+</tr>
+<tr>
+    <th>
+        <label for="id_password1">Password:</label>
+    </th>
+    <td>
+        <input type="password" name="password1" autocomplete="new-password" required id="id_password1">
+        <br>
+        <span class="helptext">
+            <ul>
+                <li>Your password can’t be too similar to your other personal information.</li>
+                <li>Your password must contain at least 8 characters.</li>
+                <li>Your password can’t be a commonly used password.</li>
+                <li>Your password can’t be entirely numeric.</li>
+            </ul>
+        </span></td>
+</tr>
+<tr>
+    <th><label for="id_password2">Password confirmation:</label></th>
+    <td><input type="password" name="password2" autocomplete="new-password" required id="id_password2"><br><span
+            class="helptext">Enter the same password as before, for verification.</span></td>
+</tr>

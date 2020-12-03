@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block content %}
+
+<title>FundPro | Portfolio</title>
+
+
+<div class="container-fluid">
+    <div class="row pt-5">
+        <div class="col mr-auto">
+            <h6 class="display-4 text-primary">{{request.user.username}}</h6>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col mr-auto">
+            <p class="text-primary font-weight-bold">Cash: ${{CurrentTrader.cash}}</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col mr-auto">
+            <p class="text-primary font-weight-bold">AUM: ${{CurrentTrader.AUM}}</p>
+        </div>
+    </div>
+
+
+</div>
+
+
+
+
+
+
+<table class="table" id="PortfolioTable">
+    <thead>
+        <tr>
+            <th class="text-center text-primary font-weight-bold" scope="col">Ticker</th>
+            <th class="text-center text-primary font-weight-bold" scope="col">Count</th>
+            <th class="text-center text-primary font-weight-bold" scope="col">Share Price</th>
+            <th class="text-center text-primary font-weight-bold" scope="col">Position Value</th>
+            <th class="text-center text-primary font-weight-bold" scope="col"></th>
+
+        </tr>
+    </thead>
+    <tbody>
+
+        {% for position in PositionsArray %}
+        <tr>
+            <td class="text-center">{{position.ticker}}</td>
+            <td class="text-center">{{position.count}}</td>
+            <td class="text-center">${{position.price}}</td>
+            <td class="text-center">${{position.value}}</td>
+
+            <td class="text-center">
+                <form method="POST" class="form-inline my-2 my-lg-0" action="/accounts/sell/">
+                    {% csrf_token %}
+                    <input class="form-control mr-sm-2" type="number" pattern="^[0-9]" min="1" step="1"
+                        placeholder="Sell Shares" aria-label="Sell Shares" name="ShareCount" value=1>
+                    <input type="hidden" name="TickerName" value={{position.ticker}}>
+                    <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Sell</button>
+                </form>
+
+
+
+
+            </td>
+
+        </tr>
+
+
+        {% endfor %}
+    </tbody>
+</table>
+
+
+
+{% endblock %}
