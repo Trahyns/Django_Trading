@@ -1,0 +1,30 @@
+{% extends "foreign_base.html" %}
+{% block content %}
+
+
+<div class="container">
+    <div class="row pt-5">
+        <div class="col mr-auto">
+            <h2 class="display-4 text-primary">Login</h2>
+            <form method="POST">
+                {% csrf_token %}
+
+                <p>
+                    <label for="id_username">Username:</label>
+                    <input type="text" class="form-control" name="username" autofocus="" autocapitalize="none"
+                        autocomplete="username" maxlength="150" required="" id="id_username">
+                </p>
+
+                <p>
+                    <label for="id_password">Password:</label>
+                    <input type="password" class="form-control" name="password" autocomplete="current-password"
+                        required="" id="id_password">
+                </p>
+                <button type="submit" class="btn btn-outline-primary my-2 my-sm-0 text-center">Login</button>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}
