@@ -1,0 +1,190 @@
+{% extends "base.html" %}
+{% block content %}
+
+<title>FundPro | {{TickerName}}</title>
+
+<body>
+
+    <div class="container">
+        <div class="row pt-5">
+            <div class="col mr-auto">
+                <h1 class="display-4 px-4 pt-3 text-primary">{{Summary.shortName}} ({{TickerName}})</h1>
+                <h1 class="display-4 px-4 text-primary">${{Price}}</h1>
+            </div>
+
+            <div class="col-5 ml-auto pt-4">
+                <form class="form-inline" method="POST" action="/accounts/buy/">
+                    {% csrf_token %}
+                    <input type="number" class="form-control" name="ShareCount" value=1>
+                    <input type="hidden" name="TickerName" value={{TickerName}} />
+                    <button type="submit" class="btn btn-outline-primary my-2 my-sm-0 text-center">Buy Shares</button>
+                </form>
+            </div>
+
+
+        </div>
+
+        <div class="row pt-md-3">
+
+            <div class="col-10 mr-auto pl-1">
+                {{StockPlot|safe }}
+            </div>
+
+        </div>
+
+        <div class="row pt-md-3" id="GraphTimeBar">
+            <div class="col-10 mr-auto pl-1">
+                <nav class="navbar navbar-expand-lg navbar-light bg-transparent">
+                    <button id="testButton" class="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                        <form method="POST" class="form-inline my-2 my-lg-0 pl-md-2 pr-md-1" action="/search/">
+                            {% csrf_token %}
+                            <input class="form-control mr-sm-2" type="hidden" placeholder="Search Ticker"
+                                aria-label="Search Ticker" name="ticker" value="{{TickerName}}">
+                            <input type="hidden" name="graphTime" value=0>
+                            <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">1D</button>
+                        </form>
+
+                        <form method="POST" class="form-inline my-2 my-lg-0 px-md-1" action="/search/">
+                            {% csrf_token %}
+                            <input class="form-control mr-sm-2" type="hidden" placeholder="Search Ticker"
+                                aria-label="Search Ticker" name="ticker" value="{{TickerName}}">
+                            <input type="hidden" name="graphTime" value=1>
+
+                            <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">5D</button>
+                        </form>
+
+                        <form method="POST" class="form-inline my-2 my-lg-0 px-md-1" action="/search/">
+                            {% csrf_token %}
+                            <input class="form-control mr-sm-2" type="hidden" placeholder="Search Ticker"
+                                aria-label="Search Ticker" name="ticker" value="{{TickerName}}">
+                            <input type="hidden" name="graphTime" value=2>
+                            <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">1MO</button>
+                        </form>
+
+                        <form method="POST" class="form-inline my-2 my-lg-0 px-md-1" action="/search/">
+                            {% csrf_token %}
+                            <input type="hidden" name="graphTime" value=3>
+                            <input class="form-control mr-sm-2" type="hidden" placeholder="Search Ticker"
+                                aria-label="Search Ticker" name="ticker" value="{{TickerName}}">
+                            <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">3MO</button>
+                        </form>
+
+                        <form method="POST" class="form-inline my-2 my-lg-0 px-md-1" action="/search/">
+                            {% csrf_token %}
+                            <input type="hidden" name="graphTime" value=4>
+                            <input class="form-control mr-sm-2" type="hidden" placeholder="Search Ticker"
+                                aria-label="Search Ticker" name="ticker" value="{{TickerName}}">
+                            <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">1Y</button>
+                        </form>
+
+                        <form method="POST" class="form-inline my-2 my-lg-0 px-md-1" action="/search/">
+                            {% csrf_token %}
+                            <input class="form-control mr-sm-2" type="hidden" placeholder="Search Ticker"
+                                aria-label="Search Ticker" name="ticker" value="{{TickerName}}">
+                            <input type="hidden" name="graphTime" value=5>
+                            <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">5Y</button>
+                        </form>
+
+                        <form method="POST" class="form-inline my-2 my-lg-0 px-md-1" action="/search/">
+                            {% csrf_token %}
+                            <input class="form-control mr-sm-2" type="hidden" placeholder="Search Ticker"
+                                aria-label="Search Ticker" name="ticker" value="{{TickerName}}">
+                            <input type="hidden" name="graphTime" value=6>
+                            <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">MAX</button>
+                        </form>
+
+
+
+                    </div>
+                </nav>
+                <hr>
+            </div>
+
+        </div>
+
+
+
+
+
+        <div class="row">
+            <div class="col-10 mr-auto pl-1">
+                <h1 class="display-4 px-0 pt-3 text-primary">Business Summary</h1>
+                <hr>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-10 mr-auto pl-1">
+                <p class="text-dark">{{Summary.longBusinessSummary}}</p>
+            </div>
+        </div>
+
+        <div class="col-10 mr-auto pl-1">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td class="text-primary text-center font-weight-bold">Industry</td>
+                        <td class="text-primary text-center font-weight-bold">Exchange</td>
+                        <td class="text-primary text-center font-weight-bold">Location</td>
+                        <td class="text-primary text-center font-weight-bold">Founded</td>
+                    </tr>
+
+                    <tr>
+                        <td class="text-center">{{Summary.industry}}</td>
+                        <td class="text-center">{{Profile.exchange}}</td>
+                        <td class="text-center">{{Summary.city}}</td>
+                        <td class="text-center">{{Summary.currency}}</td>
+                    </tr>
+
+                    <tr>
+                        <td class="text-primary text-center font-weight-bold">Previous Close</td>
+                        <td class="text-primary text-center font-weight-bold">Market Open</td>
+                        <td class="text-primary text-center font-weight-bold">Market Cap</td>
+                        <td class="text-primary text-center font-weight-bold">Volume</td>
+                    </tr>
+
+                    <tr>
+                        <td class="text-center">${{Summary.previousClose}}</td>
+                        <td class="text-center">${{Summary.regularMarketOpen}}</td>
+                        <td class="text-center">${{Summary.marketCap}}</td>
+                        <td class="text-center">{{Summary.volume}}</td>
+                    </tr>
+
+                    <tr>
+                        <td class="text-primary text-center font-weight-bold">Trailing PE</td>
+                        <td class="text-primary text-center font-weight-bold">Forward PE</td>
+                        <td class="text-primary text-center font-weight-bold">Beta</td>
+                        <td class="text-primary text-center font-weight-bold">Short Ratio</td>
+                    </tr>
+
+                    <tr>
+                        <td class="text-center">{{Summary.trailingPE}}</td>
+                        <td class="text-center">{{Summary.forwardPE}}</td>
+                        <td class="text-center">{{Summary.beta}}</td>
+                        <td class="text-center">{{Summary.shortRatio}}</td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+
+
+
+
+
+
+
+
+
+</body>
+
+{% endblock %}
